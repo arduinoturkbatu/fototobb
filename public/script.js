@@ -2,13 +2,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/fireba
 import { getDatabase, ref, set, update, increment, onValue } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDVakE0ezK2bpxF_T87oz5VRw2vOlQICN8",
-    authDomain: "fototobb-bfe51.firebaseapp.com",
-    databaseURL: "https://fototobb-bfe51-default-rtdb.firebaseio.com",
-    projectId: "fototobb-bfe51",
-    storageBucket: "fototobb-bfe51.firebasestorage.app",
-    messagingSenderId: "838056253447",
-    appId: "1:838056253447:web:24b4ccd62a85ec618cf2a2"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -151,8 +151,8 @@ socket.on("user-disconnected", userId => {
 })
 
 document.addEventListener('click', () => {
-    document.querySelector("video").play()
-}, { once: true })
+    if (document.querySelector("video")) { document.querySelector("video").play() }
+})
 
 function addVideoStream(video, stream) {
     video.srcObject = stream
