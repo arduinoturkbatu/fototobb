@@ -97,6 +97,14 @@ socket.on("user-role", role => {
             document.getElementById("think").textContent = data.reactions.think;
 
             timeElapsed(data.timestamp);
+
+
+
+            document.body.innerHTML = document.body.innerHTML + `<div id="dialog" style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 999;background: rgb(0 0 0 / 15%);display: flex;justify-content: center;align-items: center;"><div style="padding: 2rem 3rem;background: #fff;border-radius: 1rem;display: flex;justify-content: center;align-items: center;gap: 0.5rem;color: #111;font-size: 1.2rem;flex-direction: column;"><p style="padding: 0;margin: 0;">Yayına hoş geldiniz!</p><span style="font-size: 1rem;opacity: 0.8;">${data.name}</span><button id="continue" style="font-size: 1rem;background: #222;margin-top: 1rem;">Devam et</button></div></div>`;
+
+            document.getElementById("continue").addEventListener("click", () => {
+                document.querySelector("#dialog").remove();
+            });
         })
     }
 })
@@ -226,7 +234,7 @@ document.getElementById("startStream").addEventListener("click", () => {
         let boombasticRoomId = location.toString().split("//fototobb.onrender.com/")[1]; //- //fototobb.onrender.com
         onValue(ref(db, "rooms/" + boombasticRoomId), (snapshot) => {
             const data = snapshot.val();
-            document.querySelector("i").innerText = data.viewers + "kişi şuan canlı izliyor.";
+            document.querySelector("i").innerText = data.viewers + " kişi şuan canlı izliyor.";
             document.querySelector("#heartStat > span:nth-child(2)").innerText = data.reactions.heart;
             document.querySelector("#applauseStat > span:nth-child(2)").innerText = data.reactions.applause;
             document.querySelector("#conffettiStat > span:nth-child(2)").innerText = data.reactions.conffetti;
