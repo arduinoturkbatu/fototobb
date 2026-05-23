@@ -2,13 +2,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/fireba
 import { getDatabase, ref, set, update, increment, onValue } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: import.meta.env.FIREBASE_API_KEY,
-    authDomain: import.meta.env.FIREBASE_AUTH_DOMAIN,
-    databaseURL: import.meta.env.FIREBASE_DATABASE_URL,
-    projectId: import.meta.env.FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.FIREBASE_APP_ID
+    apiKey: window.ENV.FIREBASE_API_KEY,
+    authDomain: window.ENV.FIREBASE_AUTH_DOMAIN,
+    databaseURL: window.ENV.FIREBASE_DATABASE_URL,
+    projectId: window.ENV.FIREBASE_PROJECT_ID,
+    storageBucket: window.ENV.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: window.ENV.FIREBASE_MESSAGING_SENDER_ID,
+    appId: window.ENV.FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);

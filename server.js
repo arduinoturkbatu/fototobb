@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 const express = require("express")
 const app = express()
 const server = require("http").Server(app)
@@ -6,6 +8,14 @@ const { v4: uuidV4 } = require("uuid")
 
 app.set("view engine", "ejs")
 app.use(express.static("public"))
+
+app.locals.firebaseApiKey = process.env.FIREBASE_API_KEY
+app.locals.firebaseAuthDomain = process.env.FIREBASE_AUTH_DOMAIN
+app.locals.firebaseProjectId = process.env.FIREBASE_PROJECT_ID
+app.locals.firebaseStorageBucket = process.env.FIREBASE_STORAGE_BUCKET
+app.locals.firebaseMessagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID
+app.locals.firebaseAppId = process.env.FIREBASE_APP_ID
+app.locals.firebaseDatabaseURL = process.env.FIREBASE_DATABASE_URL
 
 app.get("/", (req, res) => {
     res.redirect(`/${uuidV4()}`)

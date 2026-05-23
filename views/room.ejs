@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Stream</title>
     <script>
+        window.ENV = {
+            FIREBASE_API_KEY: "<%= firebaseApiKey %>",
+            FIREBASE_AUTH_DOMAIN: "<%= firebaseAuthDomain %>",
+            FIREBASE_PROJECT_ID: "<%= firebaseProjectId %>",
+            FIREBASE_STORAGE_BUCKET: "<%= firebaseStorageBucket %>",
+            FIREBASE_MESSAGING_SENDER_ID: "<%= firebaseMessagingSenderId %>",
+            FIREBASE_APP_ID: "<%= firebaseAppId %>",
+            FIREBASE_DATABASE_URL: "<%= firebaseDatabaseURL %>"
+        };
+
         const ROOM_ID = "<%= roomId %>"
     </script>
     <script src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js" defer></script>
