@@ -22,6 +22,7 @@ myVideo.muted = true // Streamer shouldn't hear themselves
 const peers = {}
 let myRole = "viewer"
 let myStream = null
+let yayinisim
 
 myPeer.on("open", id => {
     console.log("My peer ID:", id)
@@ -43,6 +44,15 @@ myPeer.on("call", call => {
             // Clear grid to prevent duplicate videos if the streamer reconnects
             videoGrid.innerHTML = ''
             addVideoStream(video, userVideoStream)
+            document.body.innerHTML = document.body.innerHTML + `<div id="dialog" style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 999;background: rgb(0 0 0 / 15%);display: flex;justify-content: center;align-items: center;"><div style="padding: 2rem 3rem;background: #fff;border-radius: 1rem;display: flex;justify-content: center;align-items: center;gap: 0.5rem;color: #111;font-size: 1.2rem;flex-direction: column;"><p style="padding: 0;margin: 0;">Yayına hoş geldiniz!</p><span style="font-size: 1rem;opacity: 0.8;">${yayinisim}</span><button id="continue" style="font-size: 1rem;background: #222;margin-top: 1rem;">Devam et</button></div></div>`;
+
+            document.querySelectorAll("#continue").forEach(button => {
+                button.addEventListener("click", () => {
+                    document.querySelectorAll("#dialog").forEach(dialog => {
+                        dialog.remove();
+                    });
+                });
+            });
         })
     } else if (myRole === "streamer" && myStream) {
         // Fallback just in case a viewer somehow calls the streamer
@@ -98,13 +108,7 @@ socket.on("user-role", role => {
 
             timeElapsed(data.timestamp);
 
-
-
-            document.body.innerHTML = document.body.innerHTML + `<div id="dialog" style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 999;background: rgb(0 0 0 / 15%);display: flex;justify-content: center;align-items: center;"><div style="padding: 2rem 3rem;background: #fff;border-radius: 1rem;display: flex;justify-content: center;align-items: center;gap: 0.5rem;color: #111;font-size: 1.2rem;flex-direction: column;"><p style="padding: 0;margin: 0;">Yayına hoş geldiniz!</p><span style="font-size: 1rem;opacity: 0.8;">${data.name}</span><button id="continue" style="font-size: 1rem;background: #222;margin-top: 1rem;">Devam et</button></div></div>`;
-
-            document.getElementById("continue").addEventListener("click", () => {
-                document.querySelector("#dialog").remove();
-            });
+            yayinisim = data.name;
         })
     }
 })
