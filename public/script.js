@@ -22,7 +22,7 @@ myVideo.muted = true // Streamer shouldn't hear themselves
 const peers = {}
 let myRole = "viewer"
 let myStream = null
-let yayinisim
+let yayinisim = ""
 
 myPeer.on("open", id => {
     console.log("My peer ID:", id)
@@ -47,17 +47,21 @@ myPeer.on("call", call => {
                     <div style="padding: 2rem 3rem;background: #fff;border-radius: 1rem;display: flex;justify-content: center;align-items: center;gap: 0.5rem;color: #111;font-size: 1.2rem;flex-direction: column;">
                         <p style="padding: 0;margin: 0;">Yayına hoş geldiniz!</p>
                         <span style="font-size: 1rem;opacity: 0.8;">${yayinisim || 'Canlı Yayın'}</span>
-                        <button id="continue" style="font-size: 1rem;background: #222;margin-top: 1rem;color:#fff;border:none;padding:0.5rem 1rem;border-radius:0.5rem;cursor:pointer;">Devam et</button>
+                        <button id="continue" style="font-size: 1rem;background: #222;margin-top: 1rem;color:#fff;">Devam et</button>
                     </div>
                 </div>`;
 
             document.body.insertAdjacentHTML('beforeend', dialogHTML);
 
-            const continueBtn = document.getElementById("continue");
+            const continueBtn = document.querySelectorAll("#continue");
             if (continueBtn) {
-                continueBtn.addEventListener("click", () => {
-                    const dialog = document.getElementById("dialog");
-                    if (dialog) dialog.remove();
+                continueBtn.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const dialog = document.querySelectorAll("#dialog");
+                        if (dialog) {
+                            dialog.forEach(d => d.remove())
+                        }
+                    })
 
                     video.play().catch(err => alert("Video oynatma başlatılamadı:", err));
                 });
@@ -107,6 +111,7 @@ socket.on("user-role", role => {
         onValue(ref(db, "rooms/" + boombasticRoomId), (snapshot) => {
             const data = snapshot.val();
             roleDisplay.textContent = data.name;
+            yayinisim = data.name;
             document.getElementById("viewers").textContent = data.viewers;
             document.getElementById("heart").textContent = data.reactions.heart;
             document.getElementById("applause").textContent = data.reactions.applause;
@@ -116,8 +121,6 @@ socket.on("user-role", role => {
             document.getElementById("think").textContent = data.reactions.think;
 
             timeElapsed(data.timestamp);
-
-            yayinisim = data.name;
         })
     }
 })
