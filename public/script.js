@@ -63,7 +63,7 @@ myPeer.on("call", call => {
                         }
                     })
 
-                    video.play().catch(err => alert("Video oynatma başlatılamadı:", err));
+                    video.play().catch(err => console.log("Video oynatma başlatılamadı:", err));
                 });
             }
         })
